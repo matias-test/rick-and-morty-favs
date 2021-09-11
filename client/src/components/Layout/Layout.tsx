@@ -5,6 +5,7 @@ import CharactersList from '../../pages/CharactersList';
 import './Layout.css';
 
 export default function Layout () {
+  // Load user if not already loaded
   return (
     <section className="layout d-flex flex-column vh-100">
       <header className="layout__header">

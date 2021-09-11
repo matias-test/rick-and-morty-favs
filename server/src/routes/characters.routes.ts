@@ -3,10 +3,8 @@ import { fetchCharacter, listCharacters, toggleCharacterFav } from '../controlle
 
 const router: Router = Router()
 
-router.get('/characters', listCharacters);
-
-router.get('/characters/:id', fetchCharacter);
-
-router.post('/characters/:id/toggle-fav', toggleCharacterFav);
+router.get('/', listCharacters);
+router.get('/:id', fetchCharacter);
+router.post('/:id/toggle-fav', toggleCharacterFav);
 
 export default router

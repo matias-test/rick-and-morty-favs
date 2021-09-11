@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { Character, Info } from 'rickmortyapi/dist/interfaces';
 import ApiClientInterface from '../../types/api-client/ApiClientInterface';
+import User from '../../types/models/User';
 import BackendResponse from '../../types/responses/BackendResponse';
 import FailureResponse from '../../types/responses/FailureResponse';
 import SuccessfulDataResponse from '../../types/responses/SuccessfulDataResponse';
@@ -9,7 +10,31 @@ export class ApiClient implements ApiClientInterface {
   axios: AxiosInstance;
 
   constructor (baseURL: string) {
-    this.axios = axios.create({ baseURL });
+    this.axios = axios.create({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  async login(credentials: { username: string; password: string }): Promise<BackendResponse<User>> {
+    try {
+      const response = await this.axios.post<User>('/user/authenticate', credentials);
+
+      return ApiClient.toDataResponse(response);
+    } catch (error) {
+      return ApiClient.toErrorResponse(error as AxiosError);
+    }
+  }
+  async register(credentials: { username: string; password: string }): Promise<BackendResponse<User>> {
+    try {
+      const response = await this.axios.post<User>('/user/register', credentials);
+
+      return ApiClient.toDataResponse(response);
+    } catch (error) {
+      return ApiClient.toErrorResponse(error as AxiosError);
+    }
   }
 
   async toggleFav(id: string): Promise<BackendResponse<Character>> {

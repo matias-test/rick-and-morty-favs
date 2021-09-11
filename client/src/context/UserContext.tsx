@@ -1,17 +1,18 @@
 import React, { ReactNode, useContext, useReducer } from 'react';
+import User from '../types/models/User';
 
 interface AuthState {
   isAuthenticated: boolean;
 }
 
-enum AuthAction {
+export enum AuthAction {
   loginSuccess = 'LOGIN_SUCCESS',
   signOutSuccess = 'SIGN_OUT_SUCCESS',
 }
 
 type AuthDispatch = React.Dispatch<{ type: AuthAction; }>;
 
-const UserStateContext = React.createContext<AuthState>({ isAuthenticated: true });
+const UserStateContext = React.createContext<AuthState>({ isAuthenticated: false });
 const UserDispatchContext = React.createContext<AuthDispatch>(() => {});
 
 function userReducer (state: AuthState, action: { type: AuthAction }) {
@@ -28,7 +29,7 @@ function userReducer (state: AuthState, action: { type: AuthAction }) {
 
 function UserProvider ({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(userReducer, {
-    isAuthenticated: true, // !!window.localStorage.getItem('id_token')
+    isAuthenticated: !!window.localStorage.getItem('id_token')
   });
 
   return (
