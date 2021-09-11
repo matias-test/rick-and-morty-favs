@@ -28,7 +28,6 @@ export default function CharactersList () {
 
       setError(null);
       setCharacters(response.data.results || []);
-      console.log(response.data.results);
     };
 
     loadCharacters();

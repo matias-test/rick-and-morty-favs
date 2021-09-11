@@ -13,12 +13,12 @@ import PrivateRoute from './components/authRoutes/PrivateRoute';
 import PublicRoute from './components/authRoutes/PublicRoute';
 
 // context
-import { useUserState } from './context/UserContext';
 import { ApiClientProvider } from './context/ApiClientProvider';
+import { useAppSelector } from './hooks/store.hooks';
 
 function App() {
-  // global
-  const { isAuthenticated } = useUserState();
+  const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated)
+
 
   return (
     <ApiClientProvider>

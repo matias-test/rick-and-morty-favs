@@ -1,33 +1,18 @@
 import React, { FormEvent, useState } from 'react';
-import { useApiClient } from '../../context/ApiClientProvider';
-import { AuthAction, useUserDispatch } from '../../context/UserContext';
-import { isFailureResponse } from '../../types/responses/FailureResponse';
+import { authenticate } from '../../features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 
 function Login () {
-  const apiClient = useApiClient();
-  const dispatch = useUserDispatch();
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const isLoading = useAppSelector((state) => state.user.isAuthenticating)
+  const error = useAppSelector((state) => state.user.authenticationError)
+  const dispatch = useAppDispatch();
 
-  const handleSubmition = async (event: FormEvent) => {
-    setIsLoading(true);
-    setError('');
-
+  const handleSubmition = (event: FormEvent) => {
     event.preventDefault();
-
-    // Move to Redux
-    const response = await apiClient.login({ username, password });
-
-    if (isFailureResponse(response)) {
-      setError(response.message || 'Please try again later');
-    } else {
-      const user = response.data; // store user
-      window.localStorage.setItem('id_token', user.token);
-      dispatch({ type: AuthAction.loginSuccess });
-    }
+    dispatch(authenticate({ username, password }));
   }
 
   return (

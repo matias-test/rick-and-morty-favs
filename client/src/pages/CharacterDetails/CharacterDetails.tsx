@@ -8,7 +8,6 @@ import CharacterCard from '../CharactersList/components/CharacterCard';
 
 export default function CharacterDetails () {
   const apiClient = useApiClient();
-  console.log('useParams', useParams());
   const { id } = useParams<{ id: string }>();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +33,6 @@ export default function CharacterDetails () {
 
       setError(null);
       setCharacter(response.data);
-      console.log(response.data);
     };
 
     loadCharacters();
