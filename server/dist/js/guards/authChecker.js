@@ -12,9 +12,7 @@ function authChecker(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(401).send('Unauthorized');
     }
-    console.log('antes', req.headers.authorization);
-    const token = req.headers.authorization.split(" ")[1]; // Bearer <token>
-    console.log('token', token);
+    const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
     let userId = '';
     try {
         const result = jsonwebtoken_1.default.verify(token, secret);
@@ -24,6 +22,6 @@ function authChecker(req, res, next) {
         return res.status(401).send('Unauthorized');
     }
     req.userId = userId;
-    next();
+    return next();
 }
 exports.default = authChecker;

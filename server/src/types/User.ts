@@ -1,6 +1,6 @@
-import { Document } from 'mongoose'
+import { Document } from 'mongoose';
 
 export default interface User extends Document {
-    username: string;
-    hash: string;
+  username: string;
+  hash: string;
 }

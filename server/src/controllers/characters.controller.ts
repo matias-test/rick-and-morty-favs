@@ -1,14 +1,13 @@
-import { Response, Request } from 'express'
-import jwt from 'jsonwebtoken';
-import { getCharacter, getCharacters } from 'rickmortyapi'
+import { Response, Request } from 'express';
+import { getCharacter, getCharacters } from 'rickmortyapi';
 import FavoriteCharacters from '../models/FavoriteCharacter';
 import AuthenticatedRequest from '../types/AuthenticatedRequest';
 
 export async function listCharacters(req: Request, res: Response) {
-  const { page } = req.query as { page?: number }
+  const { page } = req.query as { page?: number };
   const { userId } = req as AuthenticatedRequest;
 
-  const response = await getCharacters({ page: page || 1 })
+  const response = await getCharacters({ page: page || 1 });
 
   if (response.data.info) {
     if (response.data.info.next) {
@@ -26,8 +25,6 @@ export async function listCharacters(req: Request, res: Response) {
   const favoriteCharacterIds = (await FavoriteCharacters
     .find({ userId, characterId: { $in: charactersIds } }, { characterId: 1, _id: 0 }))
     .map(({ characterId }) => characterId);
-  console.log(favoriteCharacterIds);
-
 
   res.status(response.status)
     .json({
@@ -35,7 +32,7 @@ export async function listCharacters(req: Request, res: Response) {
       results: (response.data.results || []).map((character) => ({
         ...character,
         isFav: favoriteCharacterIds.includes(character.id),
-      }))
+      })),
     });
 }
 
@@ -47,11 +44,11 @@ export async function fetchCharacter(req: Request, res: Response) {
 
   const { userId } = req as AuthenticatedRequest;
 
-  let fav = await FavoriteCharacters.findOne({ userId, characterId });
+  const fav = await FavoriteCharacters.findOne({ userId, characterId });
 
   const response = await getCharacter(characterId);
 
-  res.status(response.status).json({
+  return res.status(response.status).json({
     ...response.data,
     isFav: !!fav,
   });

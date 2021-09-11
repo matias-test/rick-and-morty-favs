@@ -33,7 +33,6 @@ function listCharacters(req, res) {
         const favoriteCharacterIds = (yield FavoriteCharacter_1.default
             .find({ userId, characterId: { $in: charactersIds } }, { characterId: 1, _id: 0 }))
             .map(({ characterId }) => characterId);
-        console.log(favoriteCharacterIds);
         res.status(response.status)
             .json(Object.assign(Object.assign({}, response.data), { results: (response.data.results || []).map((character) => (Object.assign(Object.assign({}, character), { isFav: favoriteCharacterIds.includes(character.id) }))) }));
     });
@@ -46,9 +45,9 @@ function fetchCharacter(req, res) {
             return res.status(404).send('Not Found');
         }
         const { userId } = req;
-        let fav = yield FavoriteCharacter_1.default.findOne({ userId, characterId });
+        const fav = yield FavoriteCharacter_1.default.findOne({ userId, characterId });
         const response = yield rickmortyapi_1.getCharacter(characterId);
-        res.status(response.status).json(Object.assign(Object.assign({}, response.data), { isFav: !!fav }));
+        return res.status(response.status).json(Object.assign(Object.assign({}, response.data), { isFav: !!fav }));
     });
 }
 exports.fetchCharacter = fetchCharacter;

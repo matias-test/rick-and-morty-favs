@@ -1,4 +1,4 @@
-import { Response, Request } from 'express'
+import { Response, Request } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
@@ -15,9 +15,7 @@ export async function authenticate(req: Request, res: Response) {
     return res.status(400).send({ message: 'Username and Password are mandatory' });
   }
 
-
   const user = await User.findOne({ username: req.body.username });
-  console.log('user', user);
   if (user && bcrypt.compareSync(password, user.hash)) {
     const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '7d' });
     return res.status(200).json({
@@ -26,7 +24,7 @@ export async function authenticate(req: Request, res: Response) {
     });
   }
 
-  return res.status(400).json({ message: 'Username or password is incorrect' })
+  return res.status(400).json({ message: 'Username or password is incorrect' });
 }
 
 export async function register(req: Request, res: Response) {
@@ -42,7 +40,7 @@ export async function register(req: Request, res: Response) {
   }
 
   if (await User.findOne({ username })) {
-    return res.status(400).send({ message: `Username ${username} is already taken`});
+    return res.status(400).send({ message: `Username ${username} is already taken` });
   }
 
   const user = new User({
@@ -53,8 +51,9 @@ export async function register(req: Request, res: Response) {
   const newUser = await user.save();
 
   const token = jwt.sign({ sub: newUser.id }, secret, { expiresIn: '7d' });
-    return res.status(200).json({
-      ...user.toJSON(),
-      token,
-    });
+
+  return res.status(200).json({
+    ...user.toJSON(),
+    token,
+  });
 }

@@ -12,9 +12,7 @@ export default function authChecker(req: Request, res: Response, next: NextFunct
     return res.status(401).send('Unauthorized');
   }
 
-  console.log('antes', req.headers.authorization);
-  const token = req.headers.authorization.split(" ")[1]; // Bearer <token>
-  console.log('token', token);
+  const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
   let userId: string = '';
   try {
     const result = jwt.verify(token, secret);
@@ -25,5 +23,5 @@ export default function authChecker(req: Request, res: Response, next: NextFunct
 
   (req as AuthenticatedRequest).userId = userId;
 
-  next();
+  return next();
 }
