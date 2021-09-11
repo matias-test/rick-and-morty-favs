@@ -23,10 +23,8 @@ function App() {
     <UserProvider>
       <Router>
         <Switch>
-          <Route exact path='/' render={() => <Redirect to='/app/videos' />} />
-          <Route exact path='/app' render={() => <Redirect to='/app/videos' />} />
-          <PrivateRoute path='/app' isAuthenticated={isAuthenticated} component={Layout} />
           <PublicRoute path='/login' isAuthenticated={isAuthenticated} component={Login} />
+          <PrivateRoute path='/' isAuthenticated={isAuthenticated} component={Layout} />
           <Route component={Error} />
         </Switch>
       </Router>
