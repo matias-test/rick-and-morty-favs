@@ -6,6 +6,17 @@ export async function listCharacters(req: Request, res: Response) {
 
   const response = await getCharacters({ page: page || 1 })
 
+  if (response.data.info) {
+    if (response.data.info.next) {
+      const url = new URL(response.data.info.next);
+      response.data.info.next = url.searchParams.get('page');
+    }
+    if (response.data.info.prev) {
+      const url = new URL(response.data.info.prev);
+      response.data.info.prev = url.searchParams.get('page');
+    }
+  }
+
   res.status(response.status).json(response.data);
 }
 

@@ -14,6 +14,16 @@ function listCharacters(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { page } = req.query;
         const response = yield rickmortyapi_1.getCharacters({ page: page || 1 });
+        if (response.data.info) {
+            if (response.data.info.next) {
+                const url = new URL(response.data.info.next);
+                response.data.info.next = url.searchParams.get('page');
+            }
+            if (response.data.info.prev) {
+                const url = new URL(response.data.info.prev);
+                response.data.info.prev = url.searchParams.get('page');
+            }
+        }
         res.status(response.status).json(response.data);
     });
 }

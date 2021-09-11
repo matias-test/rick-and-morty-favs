@@ -1,43 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import { Character } from 'rickmortyapi/dist/interfaces';
-import Loading from '../../components/Loading/Loading';
-import { useApiClient } from '../../context/ApiClientProvider';
-import { isFailureResponse } from '../../types/responses/FailureResponse';
 import CharacterCard from './components/CharacterCard';
 import './CharactersList.css';
+import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+import { listCharacters, selectAllCharactersUntil } from '../../features/characters/charactersSlice';
+import { useLocation } from 'react-router';
 
 export default function CharactersList () {
-  const apiClient = useApiClient();
+  const location = useLocation()
+  const dispatch = useAppDispatch();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const pages = useAppSelector((state) => state.characters.pages)
+  const isLoading = useAppSelector((state) => state.characters.isLoadingPage)
+  const error = useAppSelector((state) => state.characters.loadingPageError)
+  const characters = useAppSelector(selectAllCharactersUntil(page));
+
+  const handleNextPageLoad = async () => {
+    setPage(page + 1);
+  }
 
   useEffect(() => {
-    const loadCharacters = async () => {
-      setIsLoading(true);
+    console.log(location);
+    setPage(1);
+  }, [location])
 
-      const response = await apiClient.list();
-      setIsLoading(false);
-
-      if (isFailureResponse(response)) {
-        setError(response.message || 'There was an error loading the characters');
-
-        return;
-      }
-
-      setError(null);
-      setCharacters(response.data.results || []);
-    };
-
-    loadCharacters();
-  }, [setIsLoading, apiClient]);
+  useEffect(() => {
+    dispatch(listCharacters(page))
+    setHasMore(pages > 0 && page < pages);
+  }, [dispatch, page, pages]);
 
   return (
-    <Loading error={error} loading={isLoading}>
+    <>
       <div className="characters-list">
         {characters.map((character) => <CharacterCard key={character.id} character={character} />)}
       </div>
-    </Loading>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>error</div>}
+      { hasMore && (
+        <button onClick={handleNextPageLoad} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Load Next Page'}
+        </button>
+      )}
+    </>
   );
 }
