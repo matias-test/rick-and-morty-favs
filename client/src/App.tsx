@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+
+// components
+import Layout from './components/Layout/Layout';
+
+// pages
+import Error from './pages/error/Error';
+import Login from './pages/login';
+
+// Auth Routes
+import PrivateRoute from './components/authRoutes/PrivateRoute';
+import PublicRoute from './components/authRoutes/PublicRoute';
+
+// context
+import { UserProvider, useUserState } from './context/UserContext';
 
 function App() {
+  // global
+  const { isAuthenticated } = useUserState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <Router>
+        <Switch>
+          <Route exact path='/' render={() => <Redirect to='/app/videos' />} />
+          <Route exact path='/app' render={() => <Redirect to='/app/videos' />} />
+          <PrivateRoute path='/app' isAuthenticated={isAuthenticated} component={Layout} />
+          <PublicRoute path='/login' isAuthenticated={isAuthenticated} component={Login} />
+          <Route component={Error} />
+        </Switch>
+      </Router>
+    </UserProvider>
   );
 }
 
