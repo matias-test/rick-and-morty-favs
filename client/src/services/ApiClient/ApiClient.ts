@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import { Character, Info } from 'rickmortyapi/dist/interfaces';
 import ApiClientInterface from '../../types/api-client/ApiClientInterface';
-import CharacterModel from '../../types/models/CharacterModel';
 import BackendResponse from '../../types/responses/BackendResponse';
 import FailureResponse from '../../types/responses/FailureResponse';
 import SuccessfulDataResponse from '../../types/responses/SuccessfulDataResponse';
@@ -12,9 +12,9 @@ export class ApiClient implements ApiClientInterface {
     this.axios = axios.create({ baseURL });
   }
 
-  async toggleFav(id: string): Promise<BackendResponse<CharacterModel>> {
+  async toggleFav(id: string): Promise<BackendResponse<Character>> {
     try {
-      const response = await this.axios.post<CharacterModel>(`/characters/${id}/toggle-fav`);
+      const response = await this.axios.post<Character>(`/characters/${id}/toggle-fav`);
 
       return ApiClient.toDataResponse(response);
     } catch (error) {
@@ -22,9 +22,9 @@ export class ApiClient implements ApiClientInterface {
     }
   }
 
-  async list (): Promise<BackendResponse<{ Items: CharacterModel[] }>> {
+  async list (): Promise<BackendResponse<Info<Character[]>>> {
     try {
-      const response = await this.axios.get<{ Items: CharacterModel[] }>('/characters');
+      const response = await this.axios.get<Info<Character[]>>('/characters');
 
       return ApiClient.toDataResponse(response);
     } catch (error) {
@@ -32,9 +32,9 @@ export class ApiClient implements ApiClientInterface {
     }
   }
 
-  async get (id: string): Promise<BackendResponse<CharacterModel>> {
+  async get (id: string): Promise<BackendResponse<Character>> {
     try {
-      const response = await this.axios.get<CharacterModel>(`/characters/${id}`);
+      const response = await this.axios.get<Character>(`/characters/${id}`);
 
       return ApiClient.toDataResponse(response);
     } catch (error) {
