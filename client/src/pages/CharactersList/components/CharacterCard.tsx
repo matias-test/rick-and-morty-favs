@@ -6,7 +6,7 @@ import './CharacterCard.css';
 export default function CharacterCard ({ character }: { character: Character }) {
   return (
     <article className="character-card">
-      <Link to={`/characters/${character.id}`}>
+      <Link to={`/${character.id}`}>
         <div className="character-card__image-wrapper">
           <img src={character.image} alt={character.name} />
         </div>

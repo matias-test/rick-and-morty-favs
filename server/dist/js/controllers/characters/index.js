@@ -18,9 +18,11 @@ function listCharacters(req, res) {
     });
 }
 exports.listCharacters = listCharacters;
-function fetchCharacter(id) {
+function fetchCharacter(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        throw new Error('Not yet implemented');
+        const { id } = req.params;
+        const response = yield rickmortyapi_1.getCharacter(parseInt(id, 10));
+        res.status(response.status).json(response.data);
     });
 }
 exports.fetchCharacter = fetchCharacter;
