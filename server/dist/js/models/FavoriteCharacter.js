@@ -11,4 +11,4 @@ const favoriteCharactersSchema = new mongoose_1.Schema({
         required: true,
     },
 }, { timestamps: true });
-exports.default = mongoose_1.model('FavoriteCharacter', favoriteCharactersSchema);
+exports.default = (0, mongoose_1.model)('FavoriteCharacter', favoriteCharactersSchema);

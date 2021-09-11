@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.toggleCharacterFav = exports.fetchCharacter = exports.listCharacters = void 0;
 const rickmortyapi_1 = require("rickmortyapi");
 const FavoriteCharacter_1 = __importDefault(require("../models/FavoriteCharacter"));
 function listCharacters(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { page } = req.query;
         const { userId } = req;
-        const response = yield rickmortyapi_1.getCharacters({ page: page || 1 });
+        const response = yield (0, rickmortyapi_1.getCharacters)({ page: page || 1 });
         if (response.data.info) {
             if (response.data.info.next) {
                 const url = new URL(response.data.info.next);
@@ -46,7 +47,7 @@ function fetchCharacter(req, res) {
         }
         const { userId } = req;
         const fav = yield FavoriteCharacter_1.default.findOne({ userId, characterId });
-        const response = yield rickmortyapi_1.getCharacter(characterId);
+        const response = yield (0, rickmortyapi_1.getCharacter)(characterId);
         return res.status(response.status).json(Object.assign(Object.assign({}, response.data), { isFav: !!fav }));
     });
 }
