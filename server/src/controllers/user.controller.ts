@@ -12,7 +12,7 @@ export async function authenticate(req: Request, res: Response) {
   const { username, password } = req.body as { username: string, password: string };
 
   if (!username || !password) {
-    return res.status(400).send("Username and Password are mandatory");
+    return res.status(400).send({ message: 'Username and Password are mandatory' });
   }
 
 
@@ -32,17 +32,17 @@ export async function authenticate(req: Request, res: Response) {
 export async function register(req: Request, res: Response) {
   const secret = process.env.SECRET;
   if (!secret) {
-    return res.status(500);
+    return res.status(500).send('Internal Server Error');
   }
 
   const { username, password } = req.body as { username: string, password: string };
 
   if (!username || !password) {
-    return res.status(400).send("Uername and password are mandatory");
+    return res.status(400).send({ message: 'Username and password are mandatory' });
   }
 
   if (await User.findOne({ username })) {
-    return res.status(400).send(`Username ${username} is already taken`);
+    return res.status(400).send({ message: `Username ${username} is already taken`});
   }
 
   const user = new User({

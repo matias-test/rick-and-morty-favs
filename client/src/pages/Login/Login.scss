@@ -21,6 +21,11 @@
   &__button-wrapper {
     text-align: center;
     margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    .sign-in {
+      background-color: lightblue;
+    }
   }
   &__error-message {
     display: block;

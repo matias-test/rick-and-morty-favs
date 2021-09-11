@@ -23,7 +23,7 @@ function authenticate(req, res) {
         }
         const { username, password } = req.body;
         if (!username || !password) {
-            return res.status(400).send("Username and Password are mandatory");
+            return res.status(400).send({ message: 'Username and Password are mandatory' });
         }
         const user = yield User_1.default.findOne({ username: req.body.username });
         console.log('user', user);
@@ -39,14 +39,14 @@ function register(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const secret = process.env.SECRET;
         if (!secret) {
-            return res.status(500);
+            return res.status(500).send('Internal Server Error');
         }
         const { username, password } = req.body;
         if (!username || !password) {
-            return res.status(400).send("Uername and password are mandatory");
+            return res.status(400).send({ message: 'Username and password are mandatory' });
         }
         if (yield User_1.default.findOne({ username })) {
-            return res.status(400).send(`Username ${username} is already taken`);
+            return res.status(400).send({ message: `Username ${username} is already taken` });
         }
         const user = new User_1.default({
             username,
