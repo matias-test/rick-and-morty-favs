@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import CharacterCard from './components/CharacterCard';
-import './CharactersList.css';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
 import { listCharacters, selectAllCharactersUntil } from '../../features/characters/charactersSlice';
-import { useLocation } from 'react-router';
+import './CharactersList.scss';
 
 export default function CharactersList () {
   const location = useLocation()
@@ -34,10 +34,10 @@ export default function CharactersList () {
       <div className="characters-list">
         {characters.map((character) => <CharacterCard key={character.id} character={character} />)}
       </div>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <div className="loading">Loading...</div>}
       {error && <div>error</div>}
       { hasMore && (
-        <button className="link" onClick={handleNextPageLoad} disabled={isLoading}>
+        <button className="link loading" onClick={handleNextPageLoad} disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Load Next Page'}
         </button>
       )}

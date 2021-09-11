@@ -8,8 +8,10 @@ import { getCharacter, toggleFav } from '../../features/characters/charactersSli
 
 import Loading from '../../components/Loading';
 import HeartButton from '../../components/HeartButton';
-import './CharacterDetails.css'
+
 import NotFound from '../NotFound';
+
+import './CharacterDetails.scss'
 
 export default function CharacterDetails () {
   const dispatch = useAppDispatch();

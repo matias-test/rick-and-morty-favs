@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react';
+import './Loading.scss';
 
 interface LoadingProps {
   loading: boolean;
@@ -15,7 +16,7 @@ export default function Loading ({ loading, error, children }: PropsWithChildren
   }
   if (loading) {
     return (
-      <div>
+      <div className="loading">
         Loading...
       </div>
     );
