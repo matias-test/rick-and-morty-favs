@@ -3,12 +3,15 @@ import cors from 'cors';
 import mongoose, { ConnectOptions } from "mongoose"
 import userRoutes from './routes/user.routes';
 import charactersRoutes from './routes/characters.routes';
+import authChecker from './guards/authChecker';
+
 
 const app: Express = express()
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }))
 app.use('/user', userRoutes);
+app.use(authChecker);
 app.use('/characters', charactersRoutes);
 
 const PORT: string | number = process.env.PORT || 4000;

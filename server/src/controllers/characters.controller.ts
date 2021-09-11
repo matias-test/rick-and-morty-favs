@@ -1,33 +1,12 @@
 import { Response, Request } from 'express'
 import jwt from 'jsonwebtoken';
 import { getCharacter, getCharacters } from 'rickmortyapi'
-import FavoriteCharacters from '../../models/FavoriteCharacters';
-import User from '../../models/User';
+import FavoriteCharacters from '../models/FavoriteCharacters';
+import AuthenticatedRequest from '../types/AuthenticatedRequest';
 
 export async function listCharacters(req: Request, res: Response) {
-  // TODO: CODIGO REPETIDO
-  const secret = process.env.SECRET;
-  if (!secret) {
-    return res.status(500).json({});
-  }
-
-  if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized');
-  }
-
-  console.log('antes', req.headers.authorization);
-  const token = req.headers.authorization.split(" ")[1]; // Bearer <token>
-  console.log('token', token);
-  let userId: string = '';
-  try {
-    const result = jwt.verify(token, secret);
-    console.log('result', result);
-    userId = result.sub as string;
-  } catch {
-    return res.status(401).send('Unauthorized');
-  }
-
   const { page } = req.query as { page?: number }
+  const { userId } = req as AuthenticatedRequest;
 
   const response = await getCharacters({ page: page || 1 })
 
@@ -62,29 +41,8 @@ export async function listCharacters(req: Request, res: Response) {
 
 export async function fetchCharacter(req: Request, res: Response) {
   const characterId = parseInt((req.params as { id: string }).id, 10);
-
-  // TODO: CODIGO REPETIDO
-  const secret = process.env.SECRET;
-  if (!secret) {
-    return res.status(500).json({});
-  }
-
-  if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized');
-  }
-
-  console.log('antes', req.headers.authorization);
-  const token = req.headers.authorization.split(" ")[1]; // Bearer <token>
-  console.log('token', token);
-  let userId: string = '';
-  try {
-    const result = jwt.verify(token, secret);
-    console.log('result', result);
-    userId = result.sub as string;
-  } catch {
-    return res.status(401).send('Unauthorized');
-  }
-  /*-------------------------*/
+  const { userId } = req as AuthenticatedRequest;
+  console.log('userId', userId);
 
   let fav = await FavoriteCharacters.findOne({ userId, characterId });
   console.log({ userId, characterId, fav });
@@ -99,29 +57,7 @@ export async function fetchCharacter(req: Request, res: Response) {
 
 export async function toggleCharacterFav(req: Request, res: Response) {
   const characterId = parseInt((req.params as { id: string }).id, 10);
-
-  // TODO: CODIGO REPETIDO
-  const secret = process.env.SECRET;
-  if (!secret) {
-    return res.status(500).json({});
-  }
-
-  if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized');
-  }
-
-  console.log('antes', req.headers.authorization);
-  const token = req.headers.authorization.split(" ")[1]; // Bearer <token>
-  console.log('token', token);
-  let userId: string = '';
-  try {
-    const result = jwt.verify(token, secret);
-    console.log('result', result);
-    userId = result.sub as string;
-  } catch {
-    return res.status(401).send('Unauthorized');
-  }
-  /*-------------------------*/
+  const { userId } = req as AuthenticatedRequest;
 
   let fav = await FavoriteCharacters.findOne({ userId, characterId });
   const isFav = !!fav;

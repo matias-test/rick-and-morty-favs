@@ -1,7 +1,7 @@
 import { Response, Request } from 'express'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../../models/User';
+import User from '../models/User';
 
 export async function authenticate(req: Request, res: Response) {
   const secret = process.env.SECRET;
