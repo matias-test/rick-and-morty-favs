@@ -22,7 +22,7 @@ export default function authChecker(req: Request, res: Response, next: NextFunct
   } catch {
     return res.status(401).send('Unauthorized');
   }
-  
+
   (req as AuthenticatedRequest).userId = userId;
 
   next();

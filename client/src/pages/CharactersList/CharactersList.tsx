@@ -37,7 +37,7 @@ export default function CharactersList () {
       {isLoading && <div>Loading...</div>}
       {error && <div>error</div>}
       { hasMore && (
-        <button onClick={handleNextPageLoad} disabled={isLoading}>
+        <button className="link" onClick={handleNextPageLoad} disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Load Next Page'}
         </button>
       )}

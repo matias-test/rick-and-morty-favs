@@ -27,6 +27,46 @@ h1 {
 
 /* Not Bootstrap */
 
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    text-decoration: none;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    opacity: 0.65;
+     }
+
+  // Opinionated: add "hand" cursor to non-disabled .btn elements
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background-image: none;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgb(0, 123, 255, 0.5);
+    }
+  }
+}
+
+
 button.link {
   cursor: pointer;
   display: inline-block;

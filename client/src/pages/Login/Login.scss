@@ -1,0 +1,30 @@
+.login-container {
+  height: 100vh;
+  padding-top: 10%;
+}
+.login {
+  background-color: white;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  width: fit-content;
+  padding: 1rem 2rem;
+
+  &__title {
+    text-align: center;
+  }
+  &__form {
+    margin: auto;
+  }
+  &__button-wrapper {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  &__error-message {
+    display: block;
+    text-align: center;
+    padding-top: 0.5rem;
+  }
+}

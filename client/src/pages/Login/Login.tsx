@@ -1,6 +1,8 @@
 import React, { FormEvent, useState } from 'react';
+import ErrorMessage from '../../components/ErrorMessage';
 import { authenticate } from '../../features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+import './Login.scss';
 
 function Login () {
   const [username, setUserName] = useState('');
@@ -16,28 +18,26 @@ function Login () {
   }
 
   return (
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmition}>
-        <label>
-          <p>Username</p>
-          <input type="text" disabled={isLoading} onChange={e => setUserName(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" disabled={isLoading} onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <div>
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Sibmiting...' : 'Submit'}
-          </button>
-        </div>
-        {error && (
-          <div>
-            {error}
+    <div className="login-container">
+      <div className="login">
+        <h1 className="login__title">Please Log In</h1>
+        <form className="login__form" onSubmit={handleSubmition}>
+          <label>
+            <p>Username</p>
+            <input type="text" disabled={isLoading} onChange={e => setUserName(e.target.value)}/>
+          </label>
+          <label>
+            <p>Password</p>
+            <input type="password" disabled={isLoading} onChange={e => setPassword(e.target.value)}/>
+          </label>
+          <div className="login__button-wrapper">
+            <button className="btn" type="submit" disabled={isLoading}>
+              {isLoading ? 'Signing In...' : 'Sign In'}
+            </button>
           </div>
-        )}
-      </form>
+          {error && <ErrorMessage className="login__error-message" error={error} />}
+        </form>
+      </div>
     </div>
   );
 }
