@@ -41,11 +41,13 @@ export async function listCharacters(req: Request, res: Response) {
 
 export async function fetchCharacter(req: Request, res: Response) {
   const characterId = parseInt((req.params as { id: string }).id, 10);
+  if (Number.isNaN(characterId)) {
+    return res.status(404).send('Not Found');
+  }
+
   const { userId } = req as AuthenticatedRequest;
-  console.log('userId', userId);
 
   let fav = await FavoriteCharacters.findOne({ userId, characterId });
-  console.log({ userId, characterId, fav });
 
   const response = await getCharacter(characterId);
 

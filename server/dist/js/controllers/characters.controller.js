@@ -42,10 +42,11 @@ exports.listCharacters = listCharacters;
 function fetchCharacter(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const characterId = parseInt(req.params.id, 10);
+        if (Number.isNaN(characterId)) {
+            return res.status(404).send('Not Found');
+        }
         const { userId } = req;
-        console.log('userId', userId);
         let fav = yield FavoriteCharacter_1.default.findOne({ userId, characterId });
-        console.log({ userId, characterId, fav });
         const response = yield rickmortyapi_1.getCharacter(characterId);
         res.status(response.status).json(Object.assign(Object.assign({}, response.data), { isFav: !!fav }));
     });

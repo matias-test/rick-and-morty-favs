@@ -18,7 +18,7 @@ const getCharacter = createAsyncThunk(
     if (isSuccessfulResponse(response)) {
       return response.data;
     } else {
-      throw new Error(response.message);
+      throw new Error(response.status === 404 ? '404' : response.message);
     }
   }
 );
@@ -36,7 +36,11 @@ const getCharacterReducer = (builder: ActionReducerMapBuilder<CharactersState>) 
   })
   builder.addCase(getCharacter.rejected, (state, action) => {
     state.isLoadingCharacter = false;
-    state.loadingCharacterError = action.error.message || 'Please try again later';
+    if (action.error.message === '404') {
+      state.loadingCharacterError = '';
+    } else {
+      state.loadingCharacterError = action.error.message || 'Please try again later';
+    }
   })
   builder.addCase(getCharacter.pending, (state, action) => {
     state.isLoadingCharacter = true;
