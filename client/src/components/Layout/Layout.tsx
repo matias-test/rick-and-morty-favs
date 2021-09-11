@@ -10,7 +10,6 @@ import './Layout.css';
 export default function Layout () {
   const dispatch = useAppDispatch();
 
-  // Load user if not already loaded?
   const handleLogout = () => {
     dispatch(logout());
   };

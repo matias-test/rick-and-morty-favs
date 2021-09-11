@@ -14,4 +14,5 @@
 .layout__footer {
   padding: 0.5rem 1rem;
   border-top: 1px solid black;
+  text-align: right;
 }

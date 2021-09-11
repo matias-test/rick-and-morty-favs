@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const rickmortyapi_1 = require("rickmortyapi");
-const FavoriteCharacters_1 = __importDefault(require("../models/FavoriteCharacters"));
+const FavoriteCharacter_1 = __importDefault(require("../models/FavoriteCharacter"));
 function listCharacters(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { page } = req.query;
@@ -30,7 +30,7 @@ function listCharacters(req, res) {
             }
         }
         const charactersIds = (response.data.results || []).map(({ id }) => id);
-        const favoriteCharacterIds = (yield FavoriteCharacters_1.default
+        const favoriteCharacterIds = (yield FavoriteCharacter_1.default
             .find({ userId, characterId: { $in: charactersIds } }, { characterId: 1, _id: 0 }))
             .map(({ characterId }) => characterId);
         console.log(favoriteCharacterIds);
@@ -44,7 +44,7 @@ function fetchCharacter(req, res) {
         const characterId = parseInt(req.params.id, 10);
         const { userId } = req;
         console.log('userId', userId);
-        let fav = yield FavoriteCharacters_1.default.findOne({ userId, characterId });
+        let fav = yield FavoriteCharacter_1.default.findOne({ userId, characterId });
         console.log({ userId, characterId, fav });
         const response = yield rickmortyapi_1.getCharacter(characterId);
         res.status(response.status).json(Object.assign(Object.assign({}, response.data), { isFav: !!fav }));
@@ -55,10 +55,10 @@ function toggleCharacterFav(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const characterId = parseInt(req.params.id, 10);
         const { userId } = req;
-        let fav = yield FavoriteCharacters_1.default.findOne({ userId, characterId });
+        let fav = yield FavoriteCharacter_1.default.findOne({ userId, characterId });
         const isFav = !!fav;
         if (!fav) {
-            fav = new FavoriteCharacters_1.default({ userId, characterId });
+            fav = new FavoriteCharacter_1.default({ userId, characterId });
             yield fav.save();
         }
         else {

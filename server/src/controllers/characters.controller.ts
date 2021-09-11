@@ -1,7 +1,7 @@
 import { Response, Request } from 'express'
 import jwt from 'jsonwebtoken';
 import { getCharacter, getCharacters } from 'rickmortyapi'
-import FavoriteCharacters from '../models/FavoriteCharacters';
+import FavoriteCharacters from '../models/FavoriteCharacter';
 import AuthenticatedRequest from '../types/AuthenticatedRequest';
 
 export async function listCharacters(req: Request, res: Response) {

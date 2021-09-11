@@ -8,16 +8,12 @@ interface UserState {
   isAuthenticated: boolean;
   authenticationError: string;
   isAuthenticating: boolean;
-
-  loggedUser: User | null;
 }
 
 const initialState: UserState = {
   isAuthenticated: !!window.localStorage.getItem('id_token'),
   authenticationError: '',
   isAuthenticating: false,
-
-  loggedUser: null,
 }
 
 const authenticate = createAsyncThunk(
@@ -38,7 +34,6 @@ export const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isAuthenticated = false;
-      state.loggedUser = null;
       window.localStorage.removeItem('id_token');
     }
   },

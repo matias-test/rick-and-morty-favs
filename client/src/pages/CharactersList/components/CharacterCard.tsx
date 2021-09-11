@@ -1,7 +1,7 @@
 import React from 'react';
 import { Character } from 'rickmortyapi/dist/interfaces';
 import { Link } from 'react-router-dom';
-import HeartButton from '../../../components/HeartButton/HeartButton';
+import HeartButton from '../../../components/HeartButton';
 import './CharacterCard.css';
 
 export default function CharacterCard ({ character }: { character: Character }) {

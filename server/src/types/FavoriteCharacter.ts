@@ -1,6 +1,6 @@
 import { Document } from 'mongoose'
 
-export interface IFavoriteCharacters extends Document {
+export default interface FavoriteCharacter extends Document {
     userId: string;
     characterId: number;
 }

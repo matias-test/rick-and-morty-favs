@@ -1,4 +1,4 @@
-import { IFavoriteCharacters } from '../types/favoriteCharacters';
+import FavoriteCharacter from '../types/FavoriteCharacter';
 import { model, Schema } from 'mongoose'
 
 const favoriteCharactersSchema: Schema = new Schema({
@@ -13,4 +13,4 @@ const favoriteCharactersSchema: Schema = new Schema({
 }, { timestamps: true })
 
 
-export default model<IFavoriteCharacters>('FavoriteCharacters', favoriteCharactersSchema)
+export default model<FavoriteCharacter>('FavoriteCharacter', favoriteCharactersSchema)

@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import Loading from '../../components/Loading/Loading';
-import './CharacterDetails.css'
+
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+
 import { selectCharacterById } from '../../features/characters/charactersSelectors';
 import { getCharacter, toggleFav } from '../../features/characters/charactersSlice';
-import HeartButton from '../../components/HeartButton/HeartButton';
+
+import Loading from '../../components/Loading';
+import HeartButton from '../../components/HeartButton';
+import './CharacterDetails.css'
 
 export default function CharacterDetails () {
   const dispatch = useAppDispatch();
