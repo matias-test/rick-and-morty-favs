@@ -12,11 +12,12 @@ export async function authenticate(req: Request, res: Response) {
   const { username, password } = req.body as { username: string, password: string };
 
   if (!username || !password) {
-    return res.status(400).send("Invalid username or password");
+    return res.status(400).send("Username and Password are mandatory");
   }
 
 
   const user = await User.findOne({ username: req.body.username });
+  console.log('user', user);
   if (user && bcrypt.compareSync(password, user.hash)) {
     const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '7d' });
     return res.status(200).json({

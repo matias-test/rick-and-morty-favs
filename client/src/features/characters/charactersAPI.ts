@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
-import { Character, Info } from 'rickmortyapi/dist/interfaces';
+import { Info } from 'rickmortyapi/dist/interfaces';
 import client, { toDataResponse, toErrorResponse } from '../../services/client';
+import Character, { CharacterIsFav } from '../../types/models/Character';
 import BackendResponse from '../../types/responses/BackendResponse';
 
 const charactersAPI = {
@@ -14,7 +15,7 @@ const charactersAPI = {
     }
   },
 
-  async get (id: string): Promise<BackendResponse<Character>> {
+  async get (id: string | number): Promise<BackendResponse<Character>> {
     try {
       const response = await client.get<Character>(`/characters/${id}`);
 
@@ -24,9 +25,9 @@ const charactersAPI = {
     }
   },
 
-  async toggleFav(id: string): Promise<BackendResponse<Character>> {
+  async toggleFav(id: string | number): Promise<BackendResponse<CharacterIsFav>> {
     try {
-      const response = await client.post<Character>(`/characters/${id}/toggle-fav`);
+      const response = await client.post<CharacterIsFav>(`/characters/${id}/toggle-fav`);
 
       return toDataResponse(response);
     } catch (error) {

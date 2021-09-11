@@ -21,7 +21,6 @@ export default function CharactersList () {
   }
 
   useEffect(() => {
-    console.log(location);
     setPage(1);
   }, [location])
 

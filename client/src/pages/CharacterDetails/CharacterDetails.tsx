@@ -1,49 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { Character } from 'rickmortyapi/dist/interfaces';
 import Loading from '../../components/Loading/Loading';
-import { useApiClient } from '../../context/ApiClientProvider';
-import { isFailureResponse } from '../../types/responses/FailureResponse';
-import CharacterCard from '../CharactersList/components/CharacterCard';
+import './CharacterDetails.css'
+import { useAppDispatch, useAppSelector } from '../../hooks/store.hooks';
+import { selectCharacterById } from '../../features/characters/charactersSelectors';
+import { getCharacter, toggleFav } from '../../features/characters/charactersSlice';
+import HeartButton from '../../components/HeartButton/HeartButton';
 
 export default function CharacterDetails () {
-  const apiClient = useApiClient();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [character, setCharacter] = useState<Character | null>(null);
+  const isLoading = useAppSelector((state) => state.characters.isLoadingCharacter)
+  const error = useAppSelector((state) => state.characters.loadingCharacterError)
+  const character = useAppSelector(selectCharacterById(id));
 
   useEffect(() => {
-    const loadCharacters = async () => {
-      setIsLoading(true);
+    dispatch(getCharacter(id))
+  }, [dispatch, id]);
 
-      const response = await apiClient.get(id);
-      setIsLoading(false);
-
-      if (isFailureResponse(response)) {
-        if (response.status === 404) {
-          setError('Character not found!');
-        } else {
-          setError(response.message || 'There was an error loading the character');
-        }
-
-        return;
-      }
-
-      setError(null);
-      setCharacter(response.data);
-    };
-
-    loadCharacters();
-  }, [setIsLoading, apiClient, id]);
+  const handleToggleFav = () => {
+    dispatch(toggleFav(id));
+  };
 
   // TODO: Do a proper details page
   return (
     <Loading error={error} loading={isLoading}>
-      <div className="character-details">
-        { character && <CharacterCard character={character} /> }
-      </div>
+      { character && (
+        <div className="character-details">
+          <div className="character-details__image-wrapper">
+            <img src={character.image} alt={character.name} />
+          </div>
+          <div className="character-details__content">
+            <div className="section">
+              <h2>{character.name}</h2>
+              <div className="status">
+                {character.status} - {character.species}
+              </div>
+            </div>
+            <div className="section">
+              <div className="text-gray">Last known location:</div>
+              <div className="externalLink__ExternalLink-sc-1lixk38-0 bQJGkk">
+                {character.location.name}
+              </div>
+            </div>
+            <div className="section">
+              <HeartButton character={character} onClick={handleToggleFav} />
+            </div>
+          </div>
+        </div>
+      )}
     </Loading>
   );
 }

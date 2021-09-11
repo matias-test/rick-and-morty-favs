@@ -13,4 +13,4 @@ const userSchema: Schema = new Schema({
 }, { timestamps: true })
 
 
-export default model<IUser>('Todo', userSchema)
+export default model<IUser>('User', userSchema)

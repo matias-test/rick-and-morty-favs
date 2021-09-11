@@ -9,6 +9,20 @@ const client = axios.create({
   },
 });
 
+client.interceptors.request.use(
+  (config: any) => {
+    const newConfig = { headers: {}, ...config };
+    const token = window.localStorage.getItem('id_token');
+
+    if (token) {
+      newConfig.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return newConfig;
+  },
+  (e: any) => Promise.reject(e),
+);
+
 export function toDataResponse<T> (response: AxiosResponse<T>): SuccessfulDataResponse<T> {
   return {
     status: response.status,

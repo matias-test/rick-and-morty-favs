@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import client from '../../services/client';
 import User from '../../types/models/User';
 import { isSuccessfulResponse } from '../../types/responses/SuccessfulDataResponse';
 import userAPI from './userAPI';
@@ -22,7 +23,7 @@ const initialState: UserState = {
 const authenticate = createAsyncThunk(
   'user/authenticate',
   async (credentials: { username: string, password: string }, thunkAPI): Promise<User> => {
-    const response = await userAPI.authenticate(credentials)
+    const response = await userAPI.register(credentials)
     if (isSuccessfulResponse(response)) {
       return response.data;
     } else {

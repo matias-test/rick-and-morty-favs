@@ -23,9 +23,10 @@ function authenticate(req, res) {
         }
         const { username, password } = req.body;
         if (!username || !password) {
-            return res.status(400).send("Invalid username or password");
+            return res.status(400).send("Username and Password are mandatory");
         }
         const user = yield User_1.default.findOne({ username: req.body.username });
+        console.log('user', user);
         if (user && bcryptjs_1.default.compareSync(password, user.hash)) {
             const token = jsonwebtoken_1.default.sign({ sub: user.id }, secret, { expiresIn: '7d' });
             return res.status(200).json(Object.assign(Object.assign({}, user.toJSON()), { token }));

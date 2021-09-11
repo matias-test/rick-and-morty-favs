@@ -1,0 +1,25 @@
+
+.heart-button .icon {
+  color: red;
+}
+.heart-button:not(.disabled):hover .icon {
+  box-shadow: 0px 0px 15px 2px #FF0000;
+}
+
+.heart-button--not-liked .liked {
+  display: none;
+}
+
+.heart-button--not-liked .not-liked {
+  display: block;
+}
+
+
+/* --- */
+.heart-button--liked .liked {
+  display: block;
+}
+
+.heart-button--liked .not-liked {
+  display: none;
+}

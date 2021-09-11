@@ -11,4 +11,4 @@ const userSchema = new mongoose_1.Schema({
         required: true
     },
 }, { timestamps: true });
-exports.default = mongoose_1.model('User', userSchema);
+exports.default = mongoose_1.model('Todo', userSchema);
