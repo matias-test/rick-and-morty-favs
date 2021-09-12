@@ -7,9 +7,9 @@
   border-radius: 0.5rem;
   margin: 0.75rem;
   box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
-  display: flex;
   margin: auto;
   margin-top: 1rem;
+  display: flex;
 
   &__image-wrapper {
     flex: 2 1 0%;
@@ -55,6 +55,15 @@
   }
 }
 
-.text-gray {
-  color: rgb(158, 158, 158);
+
+@media (max-width: 991.98px) {
+  .character-details {
+    flex-direction: column;
+    padding: 0;
+
+    &__image-wrapper {
+      align-self: center;
+      padding-top: 1rem;
+    }
+  }
 }

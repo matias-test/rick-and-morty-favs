@@ -29,11 +29,21 @@ function Login () {
         <form className="login__form" onSubmit={handleSubmition}>
           <label>
             <p>Username</p>
-            <input type="text" disabled={isLoading} onChange={e => setUserName(e.target.value)}/>
+            <input
+              type="text"
+              disabled={isLoading}
+              autoComplete="current-password"
+              onChange={e => setUserName(e.target.value)}
+            />
           </label>
           <label>
             <p>Password</p>
-            <input type="password" disabled={isLoading} onChange={e => setPassword(e.target.value)}/>
+            <input
+              type="password"
+              disabled={isLoading}
+              autoComplete="current-password"
+              onChange={e => setPassword(e.target.value)}
+            />
           </label>
           <div className="login__button-wrapper">
             <button className="btn sign-in" type="submit" disabled={isLoading}>
