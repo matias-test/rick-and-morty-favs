@@ -1,12 +1,23 @@
-.characters-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1920px;
+.characters-list-wrapper {
+  .characters-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1920px;
+  }
 
-  .loading {
+  .page-loading,
+  .main-loading {
     margin: auto;
     display: block;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    text-align: center;
+  }
+  .main-loading {
+    color: white;
+    margin-top: 1rem;
   }
 }

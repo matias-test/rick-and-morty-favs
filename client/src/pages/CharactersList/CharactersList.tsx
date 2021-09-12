@@ -30,17 +30,17 @@ export default function CharactersList () {
   }, [dispatch, page, pages]);
 
   return (
-    <>
+    <div className="characters-list-wrapper">
       <div className="characters-list">
         {characters.map((character) => <CharacterCard key={character.id} character={character} />)}
       </div>
-      {isLoading && <div className="loading">Loading...</div>}
+      {isLoading && page === 1&& <div className="main-loading">Loading...</div>}
       {error && <div>error</div>}
       { hasMore && (
-        <button className="link loading" onClick={handleNextPageLoad} disabled={isLoading}>
+        <button className="link page-loading" onClick={handleNextPageLoad} disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Load Next Page'}
         </button>
       )}
-    </>
+    </div>
   );
 }

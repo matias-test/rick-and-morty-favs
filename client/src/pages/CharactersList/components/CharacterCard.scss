@@ -1,0 +1,47 @@
+.character-card {
+  width: 220px;
+  overflow: hidden;
+  background: rgb(60, 62, 68);
+  border-radius: 0.5rem;
+  margin: 0.75rem;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+
+  &__image-wrapper {
+    width: 100%;
+  }
+
+  &__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    opacity: 1;
+    transition: opacity 0.5s ease 0s;
+    object-position: center center;
+    object-fit: cover;
+  }
+
+  &__content {
+    padding: 0.75rem;
+    color: rgb(255, 255, 255);
+    height: 60px;
+  }
+
+  a {
+    text-decoration: none;
+    h2 {
+      color: rgb(245, 245, 245);
+    }
+    &:hover h2 {
+      color: rgb(255, 152, 0);
+    }
+  }
+  position: relative;
+  .heart-button {
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+}

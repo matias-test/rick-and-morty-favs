@@ -1,4 +1,4 @@
-# Rick And Morty FAVs
+# [Rick And Morty FAVs](https://github.com/matias-test/rick-and-morty-favs)
 
 Simple express/React/Mongo/Typescript application using [Rick and Morty API](https://rickandmortyapi.com/).
 

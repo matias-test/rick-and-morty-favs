@@ -5,17 +5,19 @@ import './HeartButton.css'
 
 interface HeartButtonProps {
   character: Character;
+  className?: string;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function CharacterDetails ({ character, disabled, onClick }: HeartButtonProps) {
+export default function CharacterDetails ({ character, disabled, className, onClick }: HeartButtonProps) {
   return (
     <button
       className={`
         link
         heart-button heart-button${character.isFav ? '--liked' : '--not-liked'}
         ${ disabled ? 'disabled' : ''}
+        ${className}
       `}
       onClick={onClick}
       disabled={disabled}

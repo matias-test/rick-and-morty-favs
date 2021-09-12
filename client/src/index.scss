@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: rgb(36, 40, 47);
 }
 
 code {
@@ -49,7 +50,8 @@ h1 {
   &.disabled,
   &:disabled {
     opacity: 0.65;
-     }
+    cursor: default;
+  }
 
   // Opinionated: add "hand" cursor to non-disabled .btn elements
   &:not(:disabled):not(.disabled) {

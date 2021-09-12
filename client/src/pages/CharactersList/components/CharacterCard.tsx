@@ -2,7 +2,7 @@ import React from 'react';
 import { Character } from 'rickmortyapi/dist/interfaces';
 import { Link } from 'react-router-dom';
 import HeartButton from '../../../components/HeartButton';
-import './CharacterCard.css';
+import './CharacterCard.scss';
 
 export default function CharacterCard ({ character }: { character: Character }) {
   return (
@@ -14,9 +14,9 @@ export default function CharacterCard ({ character }: { character: Character }) 
         <div className="character-card__content">
           <h2>
             {character.name}
-            <HeartButton character={character} disabled />
           </h2>
         </div>
+        <HeartButton className="heart-button" character={character} disabled />
       </Link>
     </article>
   );

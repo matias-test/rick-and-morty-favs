@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
 }
 
 .layout__header a {
@@ -15,4 +16,6 @@
   padding: 0.5rem 1rem;
   border-top: 1px solid black;
   text-align: right;
+  background: rgb(32, 35, 41);
+  color: rgb(158, 158, 158);
 }
