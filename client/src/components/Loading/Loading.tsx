@@ -16,7 +16,7 @@ export default function Loading ({ loading, error, children }: PropsWithChildren
   }
   if (loading) {
     return (
-      <div className="loading">
+      <div className="loading text-gray">
         Loading...
       </div>
     );

@@ -34,7 +34,7 @@ export default function CharactersList () {
       <div className="characters-list">
         {characters.map((character) => <CharacterCard key={character.id} character={character} />)}
       </div>
-      {isLoading && page === 1&& <div className="main-loading">Loading...</div>}
+      {isLoading && page === 1&& <div className="main-loading text-gray">Loading...</div>}
       {error && <div>error</div>}
       { hasMore && (
         <button className="link page-loading" onClick={handleNextPageLoad} disabled={isLoading}>
