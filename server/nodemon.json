@@ -2,6 +2,7 @@
   "env": {
     "CLIENT_URL": "http://localhost:3000",
     "MONGO_URL": "mongodb://127.0.0.1/RickAndMortyDB",
+    "MONGO_MEMORY_SERVER": true,
     "SECRET": "CHANGE_THIS_TO_SOMETHING_REALLY_SECRET"
   }
 }
