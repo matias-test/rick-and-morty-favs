@@ -22,7 +22,7 @@ export default function CharactersList () {
 
   useEffect(() => {
     setPage(1);
-  }, [location])
+  }, [location]);
 
   useEffect(() => {
     dispatch(listCharacters(page))

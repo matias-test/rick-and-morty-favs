@@ -10,8 +10,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use('/user', userRoutes);
-app.use(authChecker);
-app.use('/characters', charactersRoutes);
+app.use('/characters', authChecker, charactersRoutes);
 
 const PORT: string | number = process.env.PORT || 4000;
 

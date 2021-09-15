@@ -13,8 +13,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({ origin: process.env.CLIENT_URL }));
 app.use('/user', user_routes_1.default);
-app.use(authChecker_1.default);
-app.use('/characters', characters_routes_1.default);
+app.use('/characters', authChecker_1.default, characters_routes_1.default);
 const PORT = process.env.PORT || 4000;
 const mongoDB = process.env.MONGO_URL;
 if (!mongoDB) {

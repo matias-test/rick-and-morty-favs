@@ -15,7 +15,7 @@ const listCharacters = createAsyncThunk(
       return { results: storedPage };
     }
 
-    const response = await charactersAPI.list(page)
+    const response = await charactersAPI.list(page);
     if (isSuccessfulResponse(response)) {
       return response.data;
     } else {
